@@ -24,73 +24,6 @@ try:  # image features are optional extras
 except Exception:  # pragma: no cover
     imaging = None
 
-# ---- Vercel support: cloud OCR (Tesseract is not available on Vercel) ----
-import io
-import urllib.request
-import uuid
-
-OCR_URL = "https://api.ocr.space/parse/image"
-OCR_LIMIT = 1_000_000  # OCR.space free tier accepts files up to 1 MB
-
-
-def _shrink(data: bytes) -> bytes:
-    from PIL import Image
-
-    img = Image.open(io.BytesIO(data)).convert("RGB")
-    for _ in range(8):
-        buf = io.BytesIO()
-        img.save(buf, "JPEG", quality=85)
-        if buf.tell() <= OCR_LIMIT:
-            break
-        img = img.resize((int(img.width * 0.75), int(img.height * 0.75)))
-    return buf.getvalue()
-
-
-def _remote_ocr(data: bytes, api_key: str) -> str:
-    jpg = _shrink(data)
-    boundary = uuid.uuid4().hex
-    fields = {"apikey": api_key, "language": "eng", "OCREngine": "2", "scale": "true", "isOverlayRequired": "false"}
-    body = b""
-    for k, v in fields.items():
-        body += f'--{boundary}\r\nContent-Disposition: form-data; name="{k}"\r\n\r\n{v}\r\n'.encode()
-    body += (f'--{boundary}\r\nContent-Disposition: form-data; name="file"; filename="img.jpg"\r\n'
-             f'Content-Type: image/jpeg\r\n\r\n').encode() + jpg + b"\r\n"
-    body += f"--{boundary}--\r\n".encode()
-    req = urllib.request.Request(OCR_URL, data=body, headers={"Content-Type": f"multipart/form-data; boundary={boundary}"})
-    with urllib.request.urlopen(req, timeout=25) as resp:
-        out = json.loads(resp.read().decode("utf-8"))
-    if out.get("IsErroredOnProcessing"):
-        raise RuntimeError(str(out.get("ErrorMessage")))
-    return "\n".join(r.get("ParsedText", "") for r in out.get("ParsedResults", [])).replace("\r\n", "\n").strip()
-
-
-if imaging is not None and os.environ.get("OCR_SPACE_API_KEY"):
-    _orig_process = imaging.process
-    _orig_caps = imaging.capabilities
-
-    def _process(data):
-        res = _orig_process(data)
-        ocr = res.get("ocr") or {}
-        if not ocr.get("available"):
-            try:
-                text = _remote_ocr(data, os.environ["OCR_SPACE_API_KEY"])
-                words = len(text.split())
-                res["ocr"] = {**ocr, "available": True, "text": text, "words": words,
-                              "lines": len([l for l in text.split("\n") if l.strip()]),
-                              "confidence": 85 if words else 0, "note": ""}
-            except Exception as exc:
-                print("Remote OCR failed:", exc, file=sys.stderr)
-        return res
-
-    def _capabilities():
-        caps = dict(_orig_caps())
-        caps["ocr"] = True
-        caps["hint"] = None
-        return caps
-
-    imaging.process = _process
-    imaging.capabilities = _capabilities
-
 BASE_DIR = Path(__file__).resolve().parent
 STATIC_DIR = BASE_DIR / "static"
 MAX_BODY = 128 * 1024
@@ -206,9 +139,6 @@ class Handler(BaseHTTPRequestHandler):
             self._error(400, str(exc))
         except Exception as exc:  # pragma: no cover
             self._error(500, f"Server error: {exc}")
-
-
-handler = Handler  # entry point for Vercel
 
 
 def _stop(signum, frame):
