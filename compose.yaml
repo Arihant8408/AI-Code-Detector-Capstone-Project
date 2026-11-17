@@ -1,0 +1,14 @@
+# docker compose up --build      then open http://localhost:8000
+services:
+  checker:
+    build: .
+    ports:
+      - "8000:8000"          # host port : container port
+    restart: unless-stopped
+    read_only: true          # the app writes no files, so the container's filesystem can be read-only
+    tmpfs:
+      - /tmp                 # Tesseract needs a scratch folder; kept in RAM
+    mem_limit: 512m          # resource limit (cgroups)
+    cap_drop: [ALL]          # drop Linux capabilities the app never uses
+    security_opt:
+      - no-new-privileges:true

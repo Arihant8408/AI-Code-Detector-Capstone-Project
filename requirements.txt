@@ -1,0 +1,5 @@
+# Only needed for the image features (OCR + AI-image check). The text checker needs nothing.
+pillow
+numpy
+# Also install the Tesseract program: Windows installer (UB-Mannheim build), `brew install tesseract`, or `apt install tesseract-ocr`.
+# Optional pretrained detector (set AI_IMAGE_MODEL=umm-maybe/AI-image-detector): transformers, torch
