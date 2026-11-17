@@ -1,0 +1,82 @@
+[
+ {
+  "id": "ai1",
+  "expected": "ai",
+  "code": "# Import necessary libraries\nimport math\n\n# Define a function to calculate the area of a circle\ndef calculate_area(radius: float) -> float:\n    \"\"\"\n    Calculate the area of a circle.\n\n    Args:\n        radius (float): The radius of the circle.\n\n    Returns:\n        float: The area of the circle.\n    \"\"\"\n    # Check if the radius is negative\n    if radius < 0:\n        raise ValueError(\"Radius cannot be negative\")  # Raise an error for invalid input\n    # Calculate the area using the formula pi * r^2\n    result = math.pi * radius ** 2\n    # Return the result\n    return result\n\n\n# Example usage\nif __name__ == \"__main__\":\n    # Step 1: Define the radius\n    radius = 5\n    # Step 2: Calculate the area\n    area = calculate_area(radius)\n    # Step 3: Print the result\n    print(f\"The area of the circle is {area}\")\n"
+ },
+ {
+  "id": "ai2",
+  "expected": "ai",
+  "code": "import json\n\n# ===================== Data Processing =====================\n\ndef process_data(file_path):\n    \"\"\"This function processes the data from a JSON file.\"\"\"\n    # Initialize the data variable\n    data = None\n    try:\n        # Open the file and load the JSON data\n        with open(file_path, \"r\") as f:\n            data = json.load(f)\n        print(\"Processing data...\")\n        # Create the result dictionary\n        result = {}\n        # Loop through each item in the data\n        for item in data:\n            # Add the item to the result\n            result[item[\"id\"]] = item[\"name\"]\n        print(\"✅ Data processed successfully!\")\n        return result\n    except Exception as e:\n        print(f\"Error: {e}\")\n        return None\n"
+ },
+ {
+  "id": "ai3",
+  "expected": "ai",
+  "code": "// Import required modules\nconst fs = require('fs');\n\n/**\n * Reads a file and returns its contents.\n * @param {string} path - The path to the file.\n * @returns {string} The file contents.\n */\nfunction processData(path) {\n  // Initialize the result variable\n  let result = '';\n  try {\n    // Read the file synchronously\n    const data = fs.readFileSync(path, 'utf8');\n    // Assign the data to result\n    result = data;\n  } catch (error) {\n    // Handle any errors that occur\n    console.error('Error:', error);\n  }\n  // Return the result\n  return result;\n}\n\n// Example usage\nconsole.log('Processing file...');\nconst output = processData('path/to/file.txt');\nconsole.log(output);\n"
+ },
+ {
+  "id": "ai4",
+  "expected": "ai",
+  "code": "import requests\n\nAPI_KEY = \"YOUR_API_KEY_HERE\"  # Replace with your actual API key\n\n\ndef get_weather(city: str) -> dict:\n    \"\"\"\n    Fetch the weather for a given city.\n\n    Args:\n        city (str): The name of the city.\n\n    Returns:\n        dict: The weather data.\n    \"\"\"\n    if not isinstance(city, str):\n        raise TypeError(\"city must be a string\")\n    # Build the URL for the API request\n    url = f\"https://api.example.com/weather?q={city}&key={API_KEY}\"\n    # Send the GET request\n    response = requests.get(url)\n    # Check if the request was successful\n    if response.status_code == 200:\n        # Return the JSON data\n        return response.json()\n    else:\n        # Handle the error case\n        return {}\n\n\ndef format_weather(data: dict) -> str:\n    \"\"\"\n    Format the weather data as a string.\n\n    Args:\n        data (dict): The weather data.\n\n    Returns:\n        str: The formatted string.\n    \"\"\"\n    # Return the formatted weather string\n    return f\"Temperature: {data.get('temp')}\"\n\n\ndef main() -> None:\n    \"\"\"Run the program.\"\"\"\n    # Get the weather for London\n    weather = get_weather(\"London\")\n    # Print the formatted weather\n    print(format_weather(weather))\n"
+ },
+ {
+  "id": "ai5",
+  "expected": "ai",
+  "code": "def sort_numbers(numbers):\n    # Check if the list is empty\n    if len(numbers) == 0:\n        # Return an empty list\n        return []\n    # Sort the numbers in ascending order\n    sorted_numbers = sorted(numbers)\n    # Return the sorted numbers\n    return sorted_numbers\n\n# ... rest of the code remains the same\n"
+ },
+ {
+  "id": "ai6",
+  "expected": "ai",
+  "code": "public class Calculator {\n    // Method to add two numbers\n    public int add(int a, int b) {\n        // Return the sum of a and b\n        return a + b;\n    }\n\n    // Method to subtract two numbers\n    public int subtract(int a, int b) {\n        // Return the difference of a and b\n        return a - b;\n    }\n\n    // Main method\n    public static void main(String[] args) {\n        // Create a new Calculator object\n        Calculator calc = new Calculator();\n        // Print the result of addition\n        System.out.println(\"Sum: \" + calc.add(5, 3));\n    }\n}\n"
+ },
+ {
+  "id": "ai7",
+  "expected": "ai",
+  "code": "const express = require('express');\nconst app = express();\n\n// Step 1: Define the route\napp.get('/users', async (req, res) => {\n  // Step 2: Fetch the users\n  const users = await db.getUsers();\n  // Step 3: Send the response\n  res.json(users);\n});\n\n// Start the server\napp.listen(3000, () => {\n  console.log('Server is running on port 3000 🚀');\n});\n"
+ },
+ {
+  "id": "h1",
+  "expected": "human",
+  "code": "import re\nfrom collections import Counter\n\nSTOP = {\"the\", \"a\", \"of\", \"and\"}\n\ndef top_words(text, n=5):\n    # lowercase first, otherwise \"The\" and \"the\" split the count\n    words = re.findall(r\"[a-z']+\", text.lower())\n    counts = Counter(w for w in words if w not in STOP)\n    return counts.most_common(n)\n\ndef load(path):\n    with open(path, encoding=\"utf-8\") as fh:\n        return fh.read()\n\nif __name__ == \"__main__\":\n    import sys\n    print(top_words(load(sys.argv[1])))\n"
+ },
+ {
+  "id": "h2",
+  "expected": "human",
+  "code": "const express = require('express');\nconst app = express();\napp.use(express.json());\n\n// safari sends the body as text/plain here, so parse it ourselves\napp.post('/hook', (req, res) => {\n  const body = typeof req.body === 'string' ? JSON.parse(req.body) : req.body;\n  queue.push(body);\n  res.sendStatus(202);\n});\n\napp.listen(process.env.PORT || 3000);\n"
+ },
+ {
+  "id": "h3",
+  "expected": "human",
+  "code": "def bfs(graph, start):\n    seen, q = {start}, [start]\n    order = []\n    while q:\n        node = q.pop(0)\n        order.append(node)\n        for nxt in graph[node]:\n            if nxt not in seen:\n                seen.add(nxt)\n                q.append(nxt)\n    return order\n\n\ndef shortest(graph, a, b):\n    prev = {a: None}\n    q = [a]\n    while q:\n        cur = q.pop(0)\n        if cur == b:\n            break\n        for n in graph[cur]:\n            if n not in prev:\n                prev[n] = cur\n                q.append(n)\n    path = []\n    while b is not None:\n        path.append(b)\n        b = prev.get(b)  # KeyError if b was never reached - callers check first\n    return path[::-1]\n"
+ },
+ {
+  "id": "h4",
+  "expected": "human",
+  "code": "#include <stdio.h>\n#include <stdlib.h>\n\ntypedef struct node { int v; struct node *next; } node;\n\nnode *push(node *h, int v) {\n    node *n = malloc(sizeof *n);\n    if (!n) exit(1);\n    n->v = v; n->next = h;\n    return n;\n}\n\nint main(void) {\n    node *h = NULL;\n    for (int i = 0; i < 5; i++) h = push(h, i * i);\n    for (node *p = h; p; p = p->next) printf(\"%d \", p->v);\n    putchar('\\n');\n    return 0;\n}\n"
+ },
+ {
+  "id": "h5",
+  "expected": "human",
+  "code": "import csv, sys\nfrom datetime import datetime\n\ndef parse_row(row):\n    # dates in the export are dd/mm/yy, not iso. excel did this.\n    d = datetime.strptime(row[0], \"%d/%m/%y\")\n    amt = float(row[2].replace(\",\", \"\"))\n    return d, row[1].strip(), amt\n\nrows = []\nwith open(sys.argv[1]) as f:\n    rd = csv.reader(f)\n    next(rd)  # header\n    for r in rd:\n        try:\n            rows.append(parse_row(r))\n        except ValueError:\n            pass  # trailing totals line, ignore\n\nrows.sort()\ntotal = sum(a for _, _, a in rows)\nprint(len(rows), \"rows,\", round(total, 2))\n"
+ },
+ {
+  "id": "h6",
+  "expected": "human",
+  "code": "function debounce(fn, ms) {\n  let t;\n  return (...args) => {\n    clearTimeout(t);\n    t = setTimeout(() => fn(...args), ms);\n  };\n}\n\nconst input = document.querySelector('#q');\ninput.addEventListener('input', debounce(async e => {\n  const r = await fetch('/search?q=' + encodeURIComponent(e.target.value));\n  render(await r.json());\n}, 250));\n"
+ },
+ {
+  "id": "h7",
+  "expected": "human",
+  "code": "class Stack:\n    def __init__(self):\n        self.items = []\n\n    def push(self, x):\n        self.items.append(x)\n\n    def pop(self):\n        return self.items.pop()\n\n    def peek(self):\n        return self.items[-1]\n\n    def __len__(self):\n        return len(self.items)\n\n\ndef balanced(s):\n    pairs = {\")\": \"(\", \"]\": \"[\", \"}\": \"{\"}\n    st = Stack()\n    for ch in s:\n        if ch in \"([{\":\n            st.push(ch)\n        elif ch in pairs:\n            if not len(st) or st.pop() != pairs[ch]:\n                return False\n    return len(st) == 0\n"
+ },
+ {
+  "id": "m1",
+  "expected": "mixed",
+  "code": "import os\nimport sys\n\ndef load_config(path):\n    # Open the file and read it\n    with open(path) as f:\n        text = f.read()\n    cfg = {}\n    for line in text.splitlines():\n        if \"=\" not in line:\n            continue\n        k, v = line.split(\"=\", 1)\n        cfg[k.strip()] = v.strip()\n    # windows paths come through with a trailing \\r on some machines\n    return cfg\n\ndef main():\n    cfg = load_config(sys.argv[1])\n    # Print the configuration\n    for k in cfg:\n        print(k, cfg[k])\n\nmain()\n"
+ },
+ {
+  "id": "m2",
+  "expected": "mixed",
+  "code": "function total(cart) {\n  // Calculate the total price of all items in the cart\n  let sum = 0;\n  for (const item of cart) {\n    sum += item.price * item.qty;\n  }\n  // tax is applied per-region elsewhere, do not add it here\n  return sum;\n}\n\nmodule.exports = { total };\n"
+ }
+]

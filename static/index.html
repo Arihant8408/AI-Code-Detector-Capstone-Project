@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI Code Checker</title>
+<style>
+:root{
+  --bg:#f6f7f9;--panel:#fff;--ink:#16181d;--muted:#667085;--line:#e4e7ec;--accent:#4f46e5;
+  --ai:#d92d20;--mixed:#b54708;--human:#067647;--hl:#fff1f0;--hl-edge:#f04438;--code:#101828;--codebg:#fbfbfc;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0e1116;--panel:#161b22;--ink:#e6e8ec;--muted:#8b93a1;--line:#262d38;--accent:#8b86ff;
+  --ai:#ff7a70;--mixed:#f5a65b;--human:#4bd18f;--hl:#3a1d1f;--hl-edge:#ff7a70;--code:#d6dae1;--codebg:#11151b;}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+header{padding:28px 20px 8px;max-width:1180px;margin:0 auto}
+h1{margin:0;font-size:26px;letter-spacing:-.02em}
+header p{margin:4px 0 0;color:var(--muted)}
+main{max-width:1180px;margin:0 auto;padding:16px 20px 60px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
+@media (max-width:900px){main{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px}
+.card h2{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:600}
+textarea{width:100%;min-height:340px;resize:vertical;border:1px solid var(--line);border-radius:10px;background:var(--codebg);color:var(--code);
+  padding:12px;font:13px/1.55 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;tab-size:4}
+textarea:focus{outline:2px solid var(--accent);outline-offset:1px}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:10px}
+button,select{font:inherit;border-radius:9px;border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:7px 12px;cursor:pointer}
+button:hover{border-color:var(--accent)}
+button.primary{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:600;padding:8px 18px}
+button.primary:disabled{opacity:.6;cursor:wait}
+.spacer{flex:1}
+.muted{color:var(--muted);font-size:13px}
+#result{display:none}
+.verdict{display:flex;gap:18px;align-items:center}
+.gauge{width:104px;height:104px;flex:none;position:relative}
+.gauge svg{transform:rotate(-90deg)}
+.gauge .n{position:absolute;inset:0;display:grid;place-items:center;font-size:28px;font-weight:700}
+.gauge .n small{display:block;font-size:11px;color:var(--muted);font-weight:500;margin-top:-4px;text-align:center}
+.label{font-size:20px;font-weight:700}
+.label.ai{color:var(--ai)}.label.mixed{color:var(--mixed)}.label.human{color:var(--human)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.chip{border:1px solid var(--line);border-radius:999px;padding:2px 10px;font-size:12.5px;background:var(--bg)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0 4px}
+.stat{background:var(--bg);border-radius:10px;padding:8px 10px}
+.stat b{display:block;font-size:18px}.stat span{font-size:12px;color:var(--muted)}
+.tabs{display:flex;gap:4px;margin:16px 0 8px;border-bottom:1px solid var(--line)}
+.tab{border:0;border-bottom:2px solid transparent;border-radius:0;background:none;padding:8px 12px;color:var(--muted)}
+.tab.on{color:var(--ink);border-bottom-color:var(--accent);font-weight:600}
+.code{background:var(--codebg);border:1px solid var(--line);border-radius:10px;max-height:420px;overflow:auto;
+  font:12.5px/1.6 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.ln{display:grid;grid-template-columns:42px 1fr;border-left:3px solid transparent}
+.ln i{font-style:normal;color:var(--muted);text-align:right;padding-right:10px;user-select:none}
+.ln span{white-space:pre-wrap;word-break:break-word;color:var(--code);padding-right:10px}
+.ln.hit{background:var(--hl);border-left-color:var(--hl-edge)}
+.ln.flash{outline:2px solid var(--accent)}
+pre.plain{margin:0;padding:12px;white-space:pre-wrap;word-break:break-word;color:var(--code)}
+.finding{border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-bottom:8px;cursor:pointer}
+.finding:hover{border-color:var(--accent)}
+.finding .t{font-weight:600}.finding .t em{font-style:normal;color:var(--muted);font-weight:500;font-size:12.5px;margin-left:6px}
+.finding code{display:block;font:12px ui-monospace,Menlo,Consolas,monospace;color:var(--muted);margin-top:2px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.finding .fix{font-size:13px;margin-top:3px}
+.note{font-size:13px;color:var(--muted);margin:8px 0 0}
+.err{color:var(--ai);margin-top:10px;font-weight:500}
+.disclaimer{margin-top:14px;padding:10px 12px;border-radius:10px;background:var(--bg);font-size:13px;color:var(--muted)}
+.legend{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.modes{display:flex;gap:6px;margin:0 0 12px}
+.modes button{flex:1}.modes button.on{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:600}
+.drop{border:2px dashed var(--line);border-radius:12px;min-height:240px;display:grid;place-items:center;text-align:center;padding:18px;cursor:pointer;color:var(--muted)}
+.drop.over{border-color:var(--accent);background:var(--bg)}
+.drop img{max-width:100%;max-height:320px;border-radius:8px;display:block;margin:0 auto}
+.stack{display:grid;grid-template-columns:minmax(0,1fr);gap:18px;align-content:start;min-width:0}
+.meter{height:10px;border-radius:999px;background:var(--line);overflow:hidden;margin:10px 0 4px}
+.meter i{display:block;height:100%;width:0;background:var(--accent);transition:width .6s ease}
+.sig{display:grid;grid-template-columns:54px 1fr;gap:10px;border:1px solid var(--line);border-radius:10px;padding:8px 12px;margin-bottom:8px}
+.sig b{font-variant-numeric:tabular-nums;font-size:15px}.sig b.pos{color:var(--ai)}.sig b.neg{color:var(--human)}.sig b.zero{color:var(--muted)}
+.sig .t{font-weight:600}.sig .d{font-size:13px;color:var(--muted)}
+pre.ocr{margin:0;padding:12px;white-space:pre;overflow:auto;max-height:240px;font:12.5px/1.5 ui-monospace,Menlo,Consolas,monospace;background:var(--codebg);border:1px solid var(--line);border-radius:10px;color:var(--code)}
+html{color-scheme:light dark}
+</style>
+</head>
+<body>
+<header>
+  <h1>AI Code Checker</h1>
+  <p>Paste code to see how much of it carries the stylistic fingerprints of AI assistants, and strip the redundant comments.</p>
+</header>
+<main>
+  <section class="card">
+    <h2>Input</h2>
+    <div class="modes">
+      <button class="on" id="modeCode" type="button">Paste code</button>
+      <button id="modeImg" type="button">Upload image</button>
+    </div>
+    <div id="paneCode">
+    <textarea id="code" spellcheck="false" placeholder="Paste Python, JavaScript, TypeScript, Java, C, C++, C# or Go here..."></textarea>
+    <div class="row">
+      <button class="primary" id="go">Check code</button>
+      <select id="lang" aria-label="Language">
+        <option value="auto">Auto-detect</option><option value="python">Python</option><option value="c-style">JS / TS / Java / C-style</option>
+      </select>
+      <span class="spacer"></span>
+      <span class="muted" id="count">0 chars</span>
+    </div>
+    <div class="row" id="samples"><span class="muted">Try:</span></div>
+    <div class="err" id="err"></div>
+    </div>
+    <div id="paneImg" hidden>
+      <div class="drop" id="drop" tabindex="0" role="button" aria-label="Choose or drop an image">
+        <div id="dropText"><b>Drop an image here</b><br>or click to choose, or paste a screenshot (Ctrl+V)<br>
+          <span class="muted">Screenshot of code: OCR reads it and the code checker runs on the text.<br>Photo or artwork: the AI-image check runs.</span></div>
+        <img id="preview" alt="Preview" hidden>
+      </div>
+      <input type="file" id="file" accept="image/png,image/jpeg,image/webp,image/gif,image/bmp" hidden>
+      <div class="row"><button class="primary" id="goImg" type="button" disabled>Analyse image</button>
+        <span class="muted" id="fileInfo">No image selected</span></div>
+      <div class="err" id="imgErr"></div>
+    </div>
+  </section>
+  <div class="stack">
+  <section class="card" id="imgResult" style="display:none">
+    <h2 id="imgTitle">Image check</h2>
+    <div id="imgVerdict">
+      <div class="label" id="imgLabel"></div>
+      <div class="meter"><i id="imgMeter"></i></div>
+      <div class="muted" id="imgScore"></div>
+      <div class="tabs" style="margin-top:12px"><span class="muted" style="padding:6px 0">Signals</span></div>
+      <div id="signals"></div>
+    </div>
+    <p class="note" id="naNote" hidden>This is a screenshot, so the AI-image check does not apply and was skipped. The code in it is judged in the Result card.</p>
+    <div class="tabs"><span class="muted" style="padding:6px 0">Text read from the image (OCR)</span></div>
+    <pre class="ocr" id="ocrText"></pre>
+    <div class="muted" id="ocrInfo" style="margin-top:6px"></div>
+    <div id="imgNotes"></div>
+    <div class="disclaimer" id="imgDisclaimer"></div>
+  </section>
+
+  <section class="card" id="result">
+    <h2>Result</h2>
+    <div class="verdict">
+      <div class="gauge">
+        <svg width="104" height="104" viewBox="0 0 104 104">
+          <circle cx="52" cy="52" r="44" fill="none" stroke="var(--line)" stroke-width="9"/>
+          <circle id="arc" cx="52" cy="52" r="44" fill="none" stroke="var(--accent)" stroke-width="9" stroke-linecap="round" stroke-dasharray="276.46" stroke-dashoffset="276.46"/>
+        </svg>
+        <div class="n"><div><span id="score">0</span><small>AI-style</small></div></div>
+      </div>
+      <div>
+        <div class="label" id="label"></div>
+        <div class="chips" id="reasons"></div>
+      </div>
+    </div>
+    <div class="stats" id="stats"></div>
+
+    <div class="tabs" role="tablist">
+      <button class="tab on" data-tab="annot">Annotated</button>
+      <button class="tab" data-tab="finds">Findings</button>
+      <button class="tab" data-tab="clean">Cleaned</button>
+    </div>
+    <div id="tab-annot"><div class="code" id="annot"></div></div>
+    <div id="tab-finds" hidden><div id="findings"></div></div>
+    <div id="tab-clean" hidden>
+      <div class="row" style="margin:0 0 8px"><span class="muted" id="cleanInfo"></span><span class="spacer"></span><button id="copy">Copy cleaned code</button></div>
+      <div class="code"><pre class="plain" id="cleaned"></pre></div>
+    </div>
+    <div id="notes"></div>
+    <div class="disclaimer" id="disclaimer"></div>
+  </section>
+  </div>
+</main>
+<script>
+const $ = id => document.getElementById(id);
+let lastSource = "", lastResult = null;
+
+function el(tag, cls, text){ const e = document.createElement(tag); if(cls) e.className = cls; if(text !== undefined) e.textContent = text; return e; }
+
+$("code").addEventListener("input", () => { $("count").textContent = $("code").value.length.toLocaleString() + " chars"; });
+
+fetch("/api/samples").then(r => r.json()).then(d => {
+  d.samples.forEach(s => {
+    const b = el("button", "", s.title);
+    b.onclick = () => { $("code").value = s.code; $("lang").value = "auto"; $("code").dispatchEvent(new Event("input")); run(); };
+    $("samples").appendChild(b);
+  });
+});
+
+document.querySelectorAll(".tab").forEach(t => t.onclick = () => {
+  document.querySelectorAll(".tab").forEach(x => x.classList.toggle("on", x === t));
+  ["annot","finds","clean"].forEach(k => $("tab-" + k).hidden = (k !== t.dataset.tab));
+});
+
+$("go").onclick = run;
+$("code").addEventListener("keydown", e => { if ((e.ctrlKey || e.metaKey) && e.key === "Enter") run(); });
+
+async function run(){
+  $("err").textContent = "";
+  const code = $("code").value;
+  if(!code.trim()){ $("err").textContent = "Paste some code first."; return; }
+  $("go").disabled = true; $("go").textContent = "Checking...";
+  try{
+    const res = await fetch("/api/check", {method:"POST", headers:{"Content-Type":"application/json"},
+      body: JSON.stringify({code, language: $("lang").value})});
+    const data = await res.json();
+    if(!res.ok){ $("err").textContent = data.error || "Something went wrong."; return; }
+    lastSource = code; lastResult = data; render(data, code);
+  }catch(e){ $("err").textContent = "Could not reach the server."; }
+  finally{ $("go").disabled = false; $("go").textContent = "Check code"; }
+}
+
+function render(r, src){
+  $("result").style.display = "block";
+  $("score").textContent = r.score;
+  const arc = $("arc");
+  const col = r.verdict === "ai" ? "var(--ai)" : r.verdict === "mixed" ? "var(--mixed)" : "var(--human)";
+  arc.style.stroke = col;
+  arc.style.transition = "stroke-dashoffset .6s ease";
+  arc.style.strokeDashoffset = 276.46 * (1 - r.score / 100);
+  const lab = $("label"); lab.textContent = r.label; lab.className = "label " + r.verdict;
+
+  const rs = $("reasons"); rs.textContent = "";
+  (r.reasons.length ? r.reasons : ["No AI-style patterns found"]).forEach(x => rs.appendChild(el("span", "chip", x)));
+
+  const st = $("stats"); st.textContent = "";
+  [["Code lines", r.stats.code_lines], ["Comment lines", r.stats.comment_lines],
+   ["Comment density", Math.round(r.stats.comment_density * 100) + "%"], ["Findings", r.stats.findings]].forEach(([k, v]) => {
+    const d = el("div", "stat"); d.appendChild(el("b", "", String(v))); d.appendChild(el("span", "", k)); st.appendChild(d);
+  });
+
+  // annotated source
+  const hits = {};
+  r.findings.forEach(f => { if(f.line){ for(let n = f.line; n <= f.end; n++) (hits[n] = hits[n] || []).push(f.title); } });
+  const a = $("annot"); a.textContent = "";
+  src.replace(/\r\n?/g, "\n").replace(/\t/g, "    ").split("\n").forEach((text, i) => {
+    const n = i + 1, row = el("div", "ln" + (hits[n] ? " hit" : "")); row.id = "ln" + n;
+    if(hits[n]) row.title = hits[n].join(" | ");
+    row.appendChild(el("i", "", String(n))); row.appendChild(el("span", "", text || " "));
+    a.appendChild(row);
+  });
+
+  // findings list
+  const fl = $("findings"); fl.textContent = "";
+  if(!r.findings.length) fl.appendChild(el("p", "muted", "Nothing flagged."));
+  r.findings.forEach(f => {
+    const box = el("div", "finding");
+    const t = el("div", "t", f.title); t.appendChild(el("em", "", f.line ? "line " + f.line : "whole file"));
+    box.appendChild(t);
+    if(f.snippet) box.appendChild(el("code", "", f.snippet));
+    box.appendChild(el("div", "note", f.message));
+    if(f.fix) box.appendChild(el("div", "fix", "Fix: " + f.fix));
+    if(f.line) box.onclick = () => {
+      document.querySelector('[data-tab="annot"]').click();
+      const row = $("ln" + f.line); row.scrollIntoView({block:"center", behavior:"smooth"});
+      row.classList.add("flash"); setTimeout(() => row.classList.remove("flash"), 1400);
+    };
+    fl.appendChild(box);
+  });
+
+  $("cleaned").textContent = r.cleaned;
+  $("cleanInfo").textContent = r.removed_comments
+    ? r.removed_comments + " redundant comment" + (r.removed_comments > 1 ? "s" : "") + " removed. Code itself is untouched."
+    : "Nothing to remove. Code is returned unchanged.";
+
+  const nt = $("notes"); nt.textContent = "";
+  r.notes.forEach(n => nt.appendChild(el("p", "note", n)));
+  $("disclaimer").textContent = r.disclaimer + " Language detected: " + r.language + ".";
+}
+
+// ------------------------------------------------------------- image mode
+let pickedFile = null;
+function setMode(img){
+  $("paneCode").hidden = img; $("paneImg").hidden = !img;
+  $("modeCode").classList.toggle("on", !img); $("modeImg").classList.toggle("on", img);
+}
+$("modeCode").onclick = () => setMode(false);
+$("modeImg").onclick = () => setMode(true);
+const drop = $("drop");
+drop.onclick = () => $("file").click();
+drop.onkeydown = e => { if(e.key === "Enter" || e.key === " ") { e.preventDefault(); $("file").click(); } };
+$("file").onchange = e => pick(e.target.files[0]);
+["dragenter","dragover"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.add("over"); }));
+["dragleave","drop"].forEach(ev => drop.addEventListener(ev, e => { e.preventDefault(); drop.classList.remove("over"); }));
+drop.addEventListener("drop", e => pick(e.dataTransfer.files[0]));
+document.addEventListener("paste", e => {
+  const f = [...(e.clipboardData?.files || [])].find(x => x.type.startsWith("image/"));
+  if(f){ setMode(true); pick(f); }
+});
+function pick(f){
+  $("imgErr").textContent = "";
+  if(!f) return;
+  if(!f.type.startsWith("image/")){ $("imgErr").textContent = "That is not an image."; return; }
+  if(f.size > 8 * 1024 * 1024){ $("imgErr").textContent = "Image is larger than 8 MB."; return; }
+  pickedFile = f;
+  const p = $("preview"); p.src = URL.createObjectURL(f); p.hidden = false; $("dropText").hidden = true;
+  $("fileInfo").textContent = (f.name || "pasted image") + " (" + Math.round(f.size / 1024) + " KB)";
+  $("goImg").disabled = false;
+}
+$("goImg").onclick = async () => {
+  if(!pickedFile) return;
+  $("imgErr").textContent = "";
+  $("goImg").disabled = true; $("goImg").textContent = "Analysing...";
+  try{
+    const res = await fetch("/api/image", {method:"POST", headers:{"Content-Type": pickedFile.type || "application/octet-stream"}, body: pickedFile});
+    const data = await res.json();
+    if(!res.ok){ $("imgErr").textContent = data.error || "Something went wrong."; return; }
+    renderImage(data);
+  }catch(e){ $("imgErr").textContent = "Could not reach the server."; }
+  finally{ $("goImg").disabled = false; $("goImg").textContent = "Analyse image"; }
+};
+
+function renderImage(d){
+  const im = d.image;
+  $("imgResult").style.display = "block";
+  const na = im.verdict === "na";
+  $("imgVerdict").hidden = na; $("naNote").hidden = !na;
+  $("imgTitle").textContent = na ? "Screenshot read by OCR" : "Image check";
+  $("imgResult").style.order = na && d.code_check ? 2 : 0; $("result").style.order = 1;   // code verdict first for screenshots
+  const lab = $("imgLabel"); lab.textContent = im.label;
+  lab.className = "label " + (im.verdict === "ai" ? "ai" : im.verdict === "possible" ? "mixed" : im.verdict === "real" ? "human" : "");
+  const col = im.verdict === "ai" ? "var(--ai)" : im.verdict === "possible" ? "var(--mixed)" : im.verdict === "real" ? "var(--human)" : "var(--muted)";
+  const m = $("imgMeter"); m.style.background = col; m.style.width = (im.verdict === "na" ? 0 : im.score) + "%";
+  $("imgScore").textContent = im.verdict === "na" ? "AI-image score not applicable" :
+    "AI-likelihood score " + im.score + "/100 (confidence: " + im.confidence + ") - " + im.info.width + "x" + im.info.height + " " + im.info.format;
+  const sg = $("signals"); sg.textContent = "";
+  if(!im.signals.length) sg.appendChild(el("p", "muted", "No signals found."));
+  im.signals.forEach(s => {
+    const row = el("div", "sig");
+    const w = el("b", s.weight > 0 ? "pos" : s.weight < 0 ? "neg" : "zero", (s.weight > 0 ? "+" : "") + s.weight);
+    const body = el("div"); body.appendChild(el("div", "t", s.name)); body.appendChild(el("div", "d", s.detail));
+    row.appendChild(w); row.appendChild(body); sg.appendChild(row);
+  });
+  const o = d.ocr;
+  $("ocrText").textContent = o.available ? (o.text || "(no text found)") : "OCR is not available on this computer yet.";
+  $("ocrInfo").textContent = o.available ? "OCR confidence " + o.confidence + "%, " + o.words + " words, " + o.lines + " lines." : o.note;
+  const nt = $("imgNotes"); nt.textContent = "";
+  d.notes.forEach(n => nt.appendChild(el("p", "note", n)));
+  $("imgDisclaimer").textContent = im.disclaimer;
+  if(d.code_check){
+    $("code").value = o.text; $("code").dispatchEvent(new Event("input"));
+    lastSource = o.text; lastResult = d.code_check; render(d.code_check, o.text);
+    nt.appendChild(el("p", "note", "The OCR text was also loaded into the Paste code tab so you can correct it and re-check."));
+  } else { $("result").style.display = "none"; }
+  (na && d.code_check ? $("result") : $("imgResult")).scrollIntoView({behavior:"smooth", block:"start"});
+}
+
+$("copy").onclick = async () => {
+  if(!lastResult) return;
+  try{ await navigator.clipboard.writeText(lastResult.cleaned); $("copy").textContent = "Copied"; }
+  catch(e){ $("copy").textContent = "Select and copy manually"; }
+  setTimeout(() => $("copy").textContent = "Copy cleaned code", 1500);
+};
+</script>
+</body>
+</html>

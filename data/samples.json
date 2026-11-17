@@ -1,0 +1,26 @@
+[
+ {
+  "id": "ai-python",
+  "title": "AI-style Python",
+  "language": "python",
+  "code": "# Import necessary libraries\nimport math\n\n# Define a function to calculate the area of a circle\ndef calculate_area(radius: float) -> float:\n    \"\"\"\n    Calculate the area of a circle.\n\n    Args:\n        radius (float): The radius of the circle.\n\n    Returns:\n        float: The area of the circle.\n    \"\"\"\n    # Check if the radius is negative\n    if radius < 0:\n        raise ValueError(\"Radius cannot be negative\")  # Raise an error for invalid input\n    # Calculate the area using the formula pi * r^2\n    result = math.pi * radius ** 2\n    # Return the result\n    return result\n\n\n# Example usage\nif __name__ == \"__main__\":\n    # Step 1: Define the radius\n    radius = 5\n    # Step 2: Calculate the area\n    area = calculate_area(radius)\n    # Step 3: Print the result\n    print(f\"The area of the circle is {area}\")\n"
+ },
+ {
+  "id": "ai-js",
+  "title": "AI-style JavaScript",
+  "language": "c-style",
+  "code": "// Import required modules\nconst fs = require('fs');\n\n/**\n * Reads a file and returns its contents.\n * @param {string} path - The path to the file.\n * @returns {string} The file contents.\n */\nfunction processData(path) {\n  // Initialize the result variable\n  let result = '';\n  try {\n    // Read the file synchronously\n    const data = fs.readFileSync(path, 'utf8');\n    // Assign the data to result\n    result = data;\n  } catch (error) {\n    // Handle any errors that occur\n    console.error('Error:', error);\n  }\n  // Return the result\n  return result;\n}\n\n// Example usage\nconsole.log('Processing file...');\nconst output = processData('path/to/file.txt');\nconsole.log(output);\n"
+ },
+ {
+  "id": "human-python",
+  "title": "Human-style Python",
+  "language": "python",
+  "code": "import re\nfrom collections import Counter\n\nSTOP = {\"the\", \"a\", \"of\", \"and\"}\n\ndef top_words(text, n=5):\n    # lowercase first, otherwise \"The\" and \"the\" split the count\n    words = re.findall(r\"[a-z']+\", text.lower())\n    counts = Counter(w for w in words if w not in STOP)\n    return counts.most_common(n)\n\ndef load(path):\n    with open(path, encoding=\"utf-8\") as fh:\n        return fh.read()\n\nif __name__ == \"__main__\":\n    import sys\n    print(top_words(load(sys.argv[1])))\n"
+ },
+ {
+  "id": "mixed",
+  "title": "Edited / mixed",
+  "language": "python",
+  "code": "import os\nimport sys\n\ndef load_config(path):\n    # Open the file and read it\n    with open(path) as f:\n        text = f.read()\n    cfg = {}\n    for line in text.splitlines():\n        if \"=\" not in line:\n            continue\n        k, v = line.split(\"=\", 1)\n        cfg[k.strip()] = v.strip()\n    # windows paths come through with a trailing \\r on some machines\n    return cfg\n\ndef main():\n    cfg = load_config(sys.argv[1])\n    # Print the configuration\n    for k in cfg:\n        print(k, cfg[k])\n\nmain()\n"
+ }
+]

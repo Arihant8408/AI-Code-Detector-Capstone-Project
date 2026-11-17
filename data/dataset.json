@@ -1,0 +1,354 @@
+[
+ {
+  "id": "p001",
+  "language": "python",
+  "expected": "ai",
+  "variant": "raw-ai",
+  "source": "templated assistant-style",
+  "code": "# Import necessary libraries\nimport math\n\n# Define a function to compute the area of a circle\ndef calculate_area(radius: float):\n    \"\"\"\n    Calculate the area of a circle.\n\n    Args:\n        radius (float): The input value.\n\n    Returns:\n        The area of a circle.\n    \"\"\"\n    # Check if the input is valid\n    if radius is None:\n        raise ValueError(\"Input cannot be None\")  # Raise an error for invalid input\n    # Compute the result using the formula\n    result = math.pi * radius ** 2\n    # Return the result\n    return result\n\n\n# Example usage\nif __name__ == \"__main__\":\n    # Step 1: Define the input\n    radius = 5\n    # Step 2: Call the function\n    output = calculate_area(radius)\n    # Step 3: Print the result\n    print(f\"Result: {output}\")\n"
+ },
+ {
+  "id": "p002",
+  "language": "python",
+  "expected": "ai",
+  "variant": "raw-ai",
+  "source": "templated assistant-style",
+  "code": "# Import necessary libraries\nimport math\n\n# Define a function to compute the temperature in Fahrenheit\ndef celsius_to_fahrenheit(celsius: float):\n    \"\"\"\n    Calculate the temperature in Fahrenheit.\n\n    Args:\n        celsius (float): The input value.\n\n    Returns:\n        The temperature in Fahrenheit.\n    \"\"\"\n    # Check if the input is valid\n    if celsius is None:\n        raise ValueError(\"Input cannot be None\")  # Raise an error for invalid input\n    # Compute the result using the formula\n    result = celsius * 9 / 5 + 32\n    # Return the result\n    return result\n\n\n# Example usage\nif __name__ == \"__main__\":\n    # Step 1: Define the input\n    celsius = 5\n    # Step 2: Call the function\n    output = celsius_to_fahrenheit(celsius)\n    # Step 3: Print the result\n    print(f\"Result: {output}\")\n"
+ },
+ {
+  "id": "p003",
+  "language": "python",
+  "expected": "ai",
+  "variant": "raw-ai",
+  "source": "templated assistant-style",
+  "code": "# Import necessary libraries\nimport math\n\n# Define a function to compute the average of a list of numbers\ndef calculate_average(numbers: list):\n    \"\"\"\n    Calculate the average of a list of numbers.\n\n    Args:\n        numbers (list): The input value.\n\n    Returns:\n        The average of a list of numbers.\n    \"\"\"\n    # Check if the input is valid\n    if numbers is None:\n        raise ValueError(\"Input cannot be None\")  # Raise an error for invalid input\n    # Compute the result using the formula\n    result = sum(numbers) / len(numbers)\n    # Return the result\n    return result\n\n\n# Example usage\nif __name__ == \"__main__\":\n    # Step 1: Define the input\n    numbers = [1, 2, 3]\n    # Step 2: Call the function\n    output = calculate_average(numbers)\n    # Step 3: Print the result\n    print(f\"Result: {output}\")\n"
+ },
+ {
+  "id": "p004",
+  "language": "python",
+  "expected": "ai",
+  "variant": "raw-ai",
+  "source": "templated assistant-style",
+  "code": "# Import necessary libraries\nimport math\n\n# Define a function to compute the largest number in a list\ndef find_maximum(numbers: list):\n    \"\"\"\n    Calculate the largest number in a list.\n\n    Args:\n        numbers (list): The input value.\n\n    Returns:\n        The largest number in a list.\n    \"\"\"\n    # Check if the input is valid\n    if numbers is None:\n        raise ValueError(\"Input cannot be None\")  # Raise an error for invalid input\n    # Compute the result using the formula\n    result = max(numbers)\n    # Return the result\n    return result\n\n\n# Example usage\nif __name__ == \"__main__\":\n    # Step 1: Define the input\n    numbers = [1, 2, 3]\n    # Step 2: Call the function\n    output = find_maximum(numbers)\n    # Step 3: Print the result\n    print(f\"Result: {output}\")\n"
+ },
+ {
+  "id": "p005",
+  "language": "python",
+  "expected": "ai",
+  "variant": "raw-ai",
+  "source": "templated assistant-style",
+  "code": "# Import necessary libraries\nimport math\n\n# Define a function to compute the reversed string\ndef reverse_string(text: str):\n    \"\"\"\n    Calculate the reversed string.\n\n    Args:\n        text (str): The input value.\n\n    Returns:\n        The reversed string.\n    \"\"\"\n    # Check if the input is valid\n    if text is None:\n        raise ValueError(\"Input cannot be None\")  # Raise an error for invalid input\n    # Compute the result using the formula\n    result = text[::-1]\n    # Return the result\n    return result\n\n\n# Example usage\nif __name__ == \"__main__\":\n    # Step 1: Define the input\n    text = 'hello world'\n    # Step 2: Call the function\n    output = reverse_string(text)\n    # Step 3: Print the result\n    print(f\"Result: {output}\")\n"
+ },
+ {
+  "id": "p006",
+  "language": "python",
+  "expected": "ai",
+  "variant": "raw-ai",
+  "source": "templated assistant-style",
+  "code": "# Import necessary libraries\nimport math\n\n# Define a function to compute the whether a number is even\ndef is_even(number: float):\n    \"\"\"\n    Calculate the whether a number is even.\n\n    Args:\n        number (float): The input value.\n\n    Returns:\n        The whether a number is even.\n    \"\"\"\n    # Check if the input is valid\n    if number is None:\n        raise ValueError(\"Input cannot be None\")  # Raise an error for invalid input\n    # Compute the result using the formula\n    result = number % 2 == 0\n    # Return the result\n    return result\n\n\n# Example usage\nif __name__ == \"__main__\":\n    # Step 1: Define the input\n    number = 5\n    # Step 2: Call the function\n    output = is_even(number)\n    # Step 3: Print the result\n    print(f\"Result: {output}\")\n"
+ },
+ {
+  "id": "p007",
+  "language": "python",
+  "expected": "ai",
+  "variant": "raw-ai",
+  "source": "templated assistant-style",
+  "code": "# Import necessary libraries\nimport math\n\n# Define a function to compute the price after a 10% discount\ndef calculate_discount(price: float):\n    \"\"\"\n    Calculate the price after a 10% discount.\n\n    Args:\n        price (float): The input value.\n\n    Returns:\n        The price after a 10% discount.\n    \"\"\"\n    # Check if the input is valid\n    if price is None:\n        raise ValueError(\"Input cannot be None\")  # Raise an error for invalid input\n    # Compute the result using the formula\n    result = price * 0.9\n    # Return the result\n    return result\n\n\n# Example usage\nif __name__ == \"__main__\":\n    # Step 1: Define the input\n    price = 5\n    # Step 2: Call the function\n    output = calculate_discount(price)\n    # Step 3: Print the result\n    print(f\"Result: {output}\")\n"
+ },
+ {
+  "id": "p008",
+  "language": "python",
+  "expected": "ai",
+  "variant": "raw-ai",
+  "source": "templated assistant-style",
+  "code": "# Import necessary libraries\nimport math\n\n# Define a function to compute the number of words in a sentence\ndef count_words(sentence: str):\n    \"\"\"\n    Calculate the number of words in a sentence.\n\n    Args:\n        sentence (str): The input value.\n\n    Returns:\n        The number of words in a sentence.\n    \"\"\"\n    # Check if the input is valid\n    if sentence is None:\n        raise ValueError(\"Input cannot be None\")  # Raise an error for invalid input\n    # Compute the result using the formula\n    result = len(sentence.split())\n    # Return the result\n    return result\n\n\n# Example usage\nif __name__ == \"__main__\":\n    # Step 1: Define the input\n    sentence = 'hello world'\n    # Step 2: Call the function\n    output = count_words(sentence)\n    # Step 3: Print the result\n    print(f\"Result: {output}\")\n"
+ },
+ {
+  "id": "p009",
+  "language": "python",
+  "expected": "ai",
+  "variant": "raw-ai",
+  "source": "templated assistant-style",
+  "code": "# Import necessary libraries\nimport math\n\n# Define a function to compute the square of a number\ndef square(value: float):\n    \"\"\"\n    Calculate the square of a number.\n\n    Args:\n        value (float): The input value.\n\n    Returns:\n        The square of a number.\n    \"\"\"\n    # Check if the input is valid\n    if value is None:\n        raise ValueError(\"Input cannot be None\")  # Raise an error for invalid input\n    # Compute the result using the formula\n    result = value * value\n    # Return the result\n    return result\n\n\n# Example usage\nif __name__ == \"__main__\":\n    # Step 1: Define the input\n    value = 5\n    # Step 2: Call the function\n    output = square(value)\n    # Step 3: Print the result\n    print(f\"Result: {output}\")\n"
+ },
+ {
+  "id": "p010",
+  "language": "python",
+  "expected": "ai",
+  "variant": "raw-ai",
+  "source": "templated assistant-style",
+  "code": "# Import necessary libraries\nimport math\n\n# Define a function to compute the initials of a name\ndef get_initials(name: str):\n    \"\"\"\n    Calculate the initials of a name.\n\n    Args:\n        name (str): The input value.\n\n    Returns:\n        The initials of a name.\n    \"\"\"\n    # Check if the input is valid\n    if name is None:\n        raise ValueError(\"Input cannot be None\")  # Raise an error for invalid input\n    # Compute the result using the formula\n    result = ''.join(p[0] for p in name.split())\n    # Return the result\n    return result\n\n\n# Example usage\nif __name__ == \"__main__\":\n    # Step 1: Define the input\n    name = 'hello world'\n    # Step 2: Call the function\n    output = get_initials(name)\n    # Step 3: Print the result\n    print(f\"Result: {output}\")\n"
+ },
+ {
+  "id": "j011",
+  "language": "c-style",
+  "expected": "ai",
+  "variant": "raw-ai",
+  "source": "templated assistant-style",
+  "code": "// Import required modules\nconst fs = require('fs');\n\n/**\n * addNumbers helper.\n * @param {*} input - The input value.\n * @returns {*} The computed result.\n */\nfunction addNumbers(a, b) {\n  // Initialize the result variable\n  let result;\n  try {\n    // Compute the value\n    result = a + b;\n  } catch (error) {\n    // Handle any errors that occur\n    console.error('Error:', error);\n  }\n  // Return the result\n  return result;\n}\n\n// Example usage\nconsole.log('Processing...');\nconsole.log(addNumbers(2, 2));\n"
+ },
+ {
+  "id": "j012",
+  "language": "c-style",
+  "expected": "ai",
+  "variant": "raw-ai",
+  "source": "templated assistant-style",
+  "code": "// Import required modules\nconst fs = require('fs');\n\n/**\n * getUserName helper.\n * @param {*} input - The input value.\n * @returns {*} The computed result.\n */\nfunction getUserName(user) {\n  // Initialize the result variable\n  let result;\n  try {\n    // Compute the value\n    result = user.name;\n  } catch (error) {\n    // Handle any errors that occur\n    console.error('Error:', error);\n  }\n  // Return the result\n  return result;\n}\n\n// Example usage\nconsole.log('Processing...');\nconsole.log(getUserName(2));\n"
+ },
+ {
+  "id": "j013",
+  "language": "c-style",
+  "expected": "ai",
+  "variant": "raw-ai",
+  "source": "templated assistant-style",
+  "code": "// Import required modules\nconst fs = require('fs');\n\n/**\n * isAdult helper.\n * @param {*} input - The input value.\n * @returns {*} The computed result.\n */\nfunction isAdult(age) {\n  // Initialize the result variable\n  let result;\n  try {\n    // Compute the value\n    result = age >= 18;\n  } catch (error) {\n    // Handle any errors that occur\n    console.error('Error:', error);\n  }\n  // Return the result\n  return result;\n}\n\n// Example usage\nconsole.log('Processing...');\nconsole.log(isAdult(2));\n"
+ },
+ {
+  "id": "j014",
+  "language": "c-style",
+  "expected": "ai",
+  "variant": "raw-ai",
+  "source": "templated assistant-style",
+  "code": "// Import required modules\nconst fs = require('fs');\n\n/**\n * doubleAll helper.\n * @param {*} input - The input value.\n * @returns {*} The computed result.\n */\nfunction doubleAll(arr) {\n  // Initialize the result variable\n  let result;\n  try {\n    // Compute the value\n    result = arr.map(x => x * 2);\n  } catch (error) {\n    // Handle any errors that occur\n    console.error('Error:', error);\n  }\n  // Return the result\n  return result;\n}\n\n// Example usage\nconsole.log('Processing...');\nconsole.log(doubleAll(2));\n"
+ },
+ {
+  "id": "j015",
+  "language": "c-style",
+  "expected": "ai",
+  "variant": "raw-ai",
+  "source": "templated assistant-style",
+  "code": "// Import required modules\nconst fs = require('fs');\n\n/**\n * capitalize helper.\n * @param {*} input - The input value.\n * @returns {*} The computed result.\n */\nfunction capitalize(str) {\n  // Initialize the result variable\n  let result;\n  try {\n    // Compute the value\n    result = str.charAt(0).toUpperCase() + str.slice(1);\n  } catch (error) {\n    // Handle any errors that occur\n    console.error('Error:', error);\n  }\n  // Return the result\n  return result;\n}\n\n// Example usage\nconsole.log('Processing...');\nconsole.log(capitalize(2));\n"
+ },
+ {
+  "id": "j016",
+  "language": "c-style",
+  "expected": "ai",
+  "variant": "raw-ai",
+  "source": "templated assistant-style",
+  "code": "// Import required modules\nconst fs = require('fs');\n\n/**\n * sumArray helper.\n * @param {*} input - The input value.\n * @returns {*} The computed result.\n */\nfunction sumArray(arr) {\n  // Initialize the result variable\n  let result;\n  try {\n    // Compute the value\n    result = arr.reduce((s, x) => s + x, 0);\n  } catch (error) {\n    // Handle any errors that occur\n    console.error('Error:', error);\n  }\n  // Return the result\n  return result;\n}\n\n// Example usage\nconsole.log('Processing...');\nconsole.log(sumArray(2));\n"
+ },
+ {
+  "id": "v017",
+  "language": "c-style",
+  "expected": "ai",
+  "variant": "raw-ai",
+  "source": "templated assistant-style",
+  "code": "public class Calculator {\n    // Method to compute the sum\n    public int add(int a, int b) {\n        // Return the sum\n        return a + b;\n    }\n\n    // Main method\n    public static void main(String[] args) {\n        // Create a new Calculator object\n        Calculator calc = new Calculator();\n        // Print the result\n        System.out.println(calc.add(3, 3));\n    }\n}\n"
+ },
+ {
+  "id": "v018",
+  "language": "c-style",
+  "expected": "ai",
+  "variant": "raw-ai",
+  "source": "templated assistant-style",
+  "code": "public class Calculator {\n    // Method to compute the product\n    public int multiply(int a, int b) {\n        // Return the product\n        return a * b;\n    }\n\n    // Main method\n    public static void main(String[] args) {\n        // Create a new Calculator object\n        Calculator calc = new Calculator();\n        // Print the result\n        System.out.println(calc.multiply(3, 3));\n    }\n}\n"
+ },
+ {
+  "id": "v019",
+  "language": "c-style",
+  "expected": "ai",
+  "variant": "raw-ai",
+  "source": "templated assistant-style",
+  "code": "public class Calculator {\n    // Method to compute the maximum\n    public int max(int a, int b) {\n        // Return the maximum\n        return Math.max(a, b);\n    }\n\n    // Main method\n    public static void main(String[] args) {\n        // Create a new Calculator object\n        Calculator calc = new Calculator();\n        // Print the result\n        System.out.println(calc.max(3, 3));\n    }\n}\n"
+ },
+ {
+  "id": "v020",
+  "language": "c-style",
+  "expected": "ai",
+  "variant": "raw-ai",
+  "source": "templated assistant-style",
+  "code": "public class Calculator {\n    // Method to compute the check\n    public boolean isPositive(int n) {\n        // Return the check\n        return n > 0;\n    }\n\n    // Main method\n    public static void main(String[] args) {\n        // Create a new Calculator object\n        Calculator calc = new Calculator();\n        // Print the result\n        System.out.println(calc.isPositive(3));\n    }\n}\n"
+ },
+ {
+  "id": "h021",
+  "language": "python",
+  "expected": "human",
+  "variant": "human",
+  "source": "hand-written",
+  "code": "import sys, json\n\ndef main():\n    cfg = json.load(open(sys.argv[1]))\n    for k, v in sorted(cfg.items()):\n        print(f\"{k:20} {v}\")\n\nmain()\n"
+ },
+ {
+  "id": "h022",
+  "language": "python",
+  "expected": "human",
+  "variant": "human",
+  "source": "hand-written",
+  "code": "from functools import lru_cache\n\n@lru_cache(None)\ndef fib(n):\n    return n if n < 2 else fib(n - 1) + fib(n - 2)\n\nprint([fib(i) for i in range(15)])\n"
+ },
+ {
+  "id": "h023",
+  "language": "python",
+  "expected": "human",
+  "variant": "human",
+  "source": "hand-written",
+  "code": "import sqlite3\n\ndb = sqlite3.connect(\"notes.db\")\ndb.execute(\"create table if not exists n(id integer primary key, body text)\")\n\ndef add(body):\n    with db:\n        db.execute(\"insert into n(body) values (?)\", (body,))\n\ndef search(q):\n    # LIKE is case-insensitive for ascii only, good enough for now\n    return db.execute(\"select body from n where body like ?\", (f\"%{q}%\",)).fetchall()\n"
+ },
+ {
+  "id": "h024",
+  "language": "python",
+  "expected": "human",
+  "variant": "human",
+  "source": "hand-written",
+  "code": "def merge(a, b):\n    i = j = 0\n    out = []\n    while i < len(a) and j < len(b):\n        if a[i] <= b[j]:\n            out.append(a[i]); i += 1\n        else:\n            out.append(b[j]); j += 1\n    return out + a[i:] + b[j:]\n\ndef msort(xs):\n    if len(xs) < 2:\n        return xs\n    m = len(xs) // 2\n    return merge(msort(xs[:m]), msort(xs[m:]))\n"
+ },
+ {
+  "id": "h025",
+  "language": "python",
+  "expected": "human",
+  "variant": "human",
+  "source": "hand-written",
+  "code": "import time\n\ndef timed(fn):\n    def w(*a, **k):\n        t = time.perf_counter()\n        try:\n            return fn(*a, **k)\n        finally:\n            print(fn.__name__, round(time.perf_counter() - t, 4))\n    return w\n\n@timed\ndef slow(n):\n    return sum(i * i for i in range(n))\n"
+ },
+ {
+  "id": "h026",
+  "language": "python",
+  "expected": "human",
+  "variant": "human",
+  "source": "hand-written",
+  "code": "import argparse, pathlib\n\nap = argparse.ArgumentParser()\nap.add_argument(\"root\")\nap.add_argument(\"--ext\", default=\".py\")\na = ap.parse_args()\n\nn = 0\nfor p in pathlib.Path(a.root).rglob(\"*\" + a.ext):\n    n += sum(1 for _ in open(p, errors=\"ignore\"))  # some files have junk bytes\nprint(n)\n"
+ },
+ {
+  "id": "h027",
+  "language": "c-style",
+  "expected": "human",
+  "variant": "human",
+  "source": "hand-written",
+  "code": "const http = require('http');\n\nhttp.createServer((req, res) => {\n  if (req.url === '/ping') return res.end('pong');\n  res.statusCode = 404;\n  res.end();\n}).listen(8080);\n"
+ },
+ {
+  "id": "h028",
+  "language": "c-style",
+  "expected": "human",
+  "variant": "human",
+  "source": "hand-written",
+  "code": "export function groupBy(xs, key) {\n  return xs.reduce((m, x) => {\n    (m[x[key]] ||= []).push(x);\n    return m;\n  }, {});\n}\n\n// intentionally not memoised, lists are tiny\nexport const names = xs => xs.map(x => x.name).sort();\n"
+ },
+ {
+  "id": "h029",
+  "language": "c-style",
+  "expected": "human",
+  "variant": "human",
+  "source": "hand-written",
+  "code": "const btn = document.getElementById('save');\nlet dirty = false;\n\ndocument.addEventListener('input', () => { dirty = true; btn.disabled = false; });\nwindow.onbeforeunload = e => dirty ? (e.returnValue = '') : undefined;\n\nbtn.onclick = async () => {\n  await fetch('/save', { method: 'POST', body: new FormData(document.forms[0]) });\n  dirty = false;\n};\n"
+ },
+ {
+  "id": "h030",
+  "language": "c-style",
+  "expected": "human",
+  "variant": "human",
+  "source": "hand-written",
+  "code": "import java.util.*;\n\npublic class Words {\n    public static void main(String[] a) {\n        Map<String, Integer> m = new TreeMap<>();\n        Scanner s = new Scanner(System.in);\n        while (s.hasNext()) m.merge(s.next().toLowerCase(), 1, Integer::sum);\n        m.forEach((k, v) -> System.out.println(k + \" \" + v));\n    }\n}\n"
+ },
+ {
+  "id": "h031",
+  "language": "c-style",
+  "expected": "human",
+  "variant": "human",
+  "source": "hand-written",
+  "code": "#include <stdio.h>\n#include <string.h>\n\nint main(int argc, char **argv) {\n    char buf[256];\n    while (fgets(buf, sizeof buf, stdin)) {\n        buf[strcspn(buf, \"\\n\")] = 0;\n        for (int i = strlen(buf) - 1; i >= 0; i--) putchar(buf[i]);\n        putchar('\\n');\n    }\n    return 0;\n}\n"
+ },
+ {
+  "id": "h032",
+  "language": "python",
+  "expected": "human",
+  "variant": "human",
+  "source": "hand-written",
+  "code": "class LRU:\n    def __init__(self, cap):\n        self.cap, self.d = cap, {}\n\n    def get(self, k):\n        if k not in self.d:\n            return None\n        v = self.d.pop(k)\n        self.d[k] = v      # dicts keep insertion order, so re-insert = most recent\n        return v\n\n    def put(self, k, v):\n        self.d.pop(k, None)\n        self.d[k] = v\n        if len(self.d) > self.cap:\n            del self.d[next(iter(self.d))]\n"
+ },
+ {
+  "id": "h033",
+  "language": "python",
+  "expected": "human",
+  "variant": "human",
+  "source": "hand-written",
+  "code": "import random\n\ndef shuffle_deal(n_players, hand=5):\n    deck = [r + s for r in \"23456789TJQKA\" for s in \"shdc\"]\n    random.shuffle(deck)\n    return [deck[i * hand:(i + 1) * hand] for i in range(n_players)]\n\nif __name__ == \"__main__\":\n    for h in shuffle_deal(4):\n        print(\" \".join(h))\n"
+ },
+ {
+  "id": "m034",
+  "language": "python",
+  "expected": "mixed",
+  "variant": "edited-ai",
+  "source": "AI-style with half the comments removed",
+  "code": "# Import necessary libraries\nimport math\n\ndef calculate_area(radius: float):\n    \"\"\"\n    Calculate the area of a circle.\n\n    Args:\n        radius (float): The input value.\n\n    Returns:\n        The area of a circle.\n    \"\"\"\n    # Check if the input is valid\n    if radius is None:\n        raise ValueError(\"Input cannot be None\")  # Raise an error for invalid input\n    result = math.pi * radius ** 2\n    # Return the result\n    return result\n\n\nif __name__ == \"__main__\":\n    # Step 1: Define the input\n    radius = 5\n    output = calculate_area(radius)\n    # Step 3: Print the result\n    print(f\"Result: {output}\")\n"
+ },
+ {
+  "id": "m035",
+  "language": "python",
+  "expected": "mixed",
+  "variant": "edited-ai",
+  "source": "AI-style with half the comments removed",
+  "code": "# Import necessary libraries\nimport math\n\ndef celsius_to_fahrenheit(celsius: float):\n    \"\"\"\n    Calculate the temperature in Fahrenheit.\n\n    Args:\n        celsius (float): The input value.\n\n    Returns:\n        The temperature in Fahrenheit.\n    \"\"\"\n    # Check if the input is valid\n    if celsius is None:\n        raise ValueError(\"Input cannot be None\")  # Raise an error for invalid input\n    result = celsius * 9 / 5 + 32\n    # Return the result\n    return result\n\n\nif __name__ == \"__main__\":\n    # Step 1: Define the input\n    celsius = 5\n    output = celsius_to_fahrenheit(celsius)\n    # Step 3: Print the result\n    print(f\"Result: {output}\")\n"
+ },
+ {
+  "id": "m036",
+  "language": "python",
+  "expected": "mixed",
+  "variant": "edited-ai",
+  "source": "AI-style with half the comments removed",
+  "code": "# Import necessary libraries\nimport math\n\ndef calculate_average(numbers: list):\n    \"\"\"\n    Calculate the average of a list of numbers.\n\n    Args:\n        numbers (list): The input value.\n\n    Returns:\n        The average of a list of numbers.\n    \"\"\"\n    # Check if the input is valid\n    if numbers is None:\n        raise ValueError(\"Input cannot be None\")  # Raise an error for invalid input\n    result = sum(numbers) / len(numbers)\n    # Return the result\n    return result\n\n\nif __name__ == \"__main__\":\n    # Step 1: Define the input\n    numbers = [1, 2, 3]\n    output = calculate_average(numbers)\n    # Step 3: Print the result\n    print(f\"Result: {output}\")\n"
+ },
+ {
+  "id": "m037",
+  "language": "python",
+  "expected": "mixed",
+  "variant": "edited-ai",
+  "source": "AI-style with half the comments removed",
+  "code": "# Import necessary libraries\nimport math\n\ndef find_maximum(numbers: list):\n    \"\"\"\n    Calculate the largest number in a list.\n\n    Args:\n        numbers (list): The input value.\n\n    Returns:\n        The largest number in a list.\n    \"\"\"\n    # Check if the input is valid\n    if numbers is None:\n        raise ValueError(\"Input cannot be None\")  # Raise an error for invalid input\n    result = max(numbers)\n    # Return the result\n    return result\n\n\nif __name__ == \"__main__\":\n    # Step 1: Define the input\n    numbers = [1, 2, 3]\n    output = find_maximum(numbers)\n    # Step 3: Print the result\n    print(f\"Result: {output}\")\n"
+ },
+ {
+  "id": "m038",
+  "language": "python",
+  "expected": "mixed",
+  "variant": "edited-ai",
+  "source": "AI-style with half the comments removed",
+  "code": "# Import necessary libraries\nimport math\n\ndef reverse_string(text: str):\n    \"\"\"\n    Calculate the reversed string.\n\n    Args:\n        text (str): The input value.\n\n    Returns:\n        The reversed string.\n    \"\"\"\n    # Check if the input is valid\n    if text is None:\n        raise ValueError(\"Input cannot be None\")  # Raise an error for invalid input\n    result = text[::-1]\n    # Return the result\n    return result\n\n\nif __name__ == \"__main__\":\n    # Step 1: Define the input\n    text = 'hello world'\n    output = reverse_string(text)\n    # Step 3: Print the result\n    print(f\"Result: {output}\")\n"
+ },
+ {
+  "id": "m039",
+  "language": "c-style",
+  "expected": "mixed",
+  "variant": "edited-ai",
+  "source": "AI-style with half the comments removed",
+  "code": "// Import required modules\nconst fs = require('fs');\n\n/**\n * addNumbers helper.\n * @param {*} input - The input value.\n * @returns {*} The computed result.\n */\nfunction addNumbers(a, b) {\n  let result;\n  try {\n    // Compute the value\n    result = a + b;\n  } catch (error) {\n    console.error('Error:', error);\n  }\n  // Return the result\n  return result;\n}\n\nconsole.log('Processing...');\nconsole.log(addNumbers(2, 2));\n"
+ },
+ {
+  "id": "m040",
+  "language": "c-style",
+  "expected": "mixed",
+  "variant": "edited-ai",
+  "source": "AI-style with half the comments removed",
+  "code": "// Import required modules\nconst fs = require('fs');\n\n/**\n * getUserName helper.\n * @param {*} input - The input value.\n * @returns {*} The computed result.\n */\nfunction getUserName(user) {\n  let result;\n  try {\n    // Compute the value\n    result = user.name;\n  } catch (error) {\n    console.error('Error:', error);\n  }\n  // Return the result\n  return result;\n}\n\nconsole.log('Processing...');\nconsole.log(getUserName(2));\n"
+ },
+ {
+  "id": "m041",
+  "language": "c-style",
+  "expected": "mixed",
+  "variant": "edited-ai",
+  "source": "AI-style with half the comments removed",
+  "code": "// Import required modules\nconst fs = require('fs');\n\n/**\n * isAdult helper.\n * @param {*} input - The input value.\n * @returns {*} The computed result.\n */\nfunction isAdult(age) {\n  let result;\n  try {\n    // Compute the value\n    result = age >= 18;\n  } catch (error) {\n    console.error('Error:', error);\n  }\n  // Return the result\n  return result;\n}\n\nconsole.log('Processing...');\nconsole.log(isAdult(2));\n"
+ },
+ {
+  "id": "s042",
+  "language": "python",
+  "expected": "ai",
+  "variant": "stripped-ai",
+  "source": "AI-style with ALL comments removed (hard case)",
+  "code": "import math\n\ndef is_even(number: float):\n    \"\"\"\n    Calculate the whether a number is even.\n\n    Args:\n        number (float): The input value.\n\n    Returns:\n        The whether a number is even.\n    \"\"\"\n    if number is None:\n        raise ValueError(\"Input cannot be None\")\n    result = number % 2 == 0\n    return result\n\nif __name__ == \"__main__\":\n    number = 5\n    output = is_even(number)\n    print(f\"Result: {output}\")\n"
+ },
+ {
+  "id": "s043",
+  "language": "python",
+  "expected": "ai",
+  "variant": "stripped-ai",
+  "source": "AI-style with ALL comments removed (hard case)",
+  "code": "import math\n\ndef calculate_discount(price: float):\n    \"\"\"\n    Calculate the price after a 10% discount.\n\n    Args:\n        price (float): The input value.\n\n    Returns:\n        The price after a 10% discount.\n    \"\"\"\n    if price is None:\n        raise ValueError(\"Input cannot be None\")\n    result = price * 0.9\n    return result\n\nif __name__ == \"__main__\":\n    price = 5\n    output = calculate_discount(price)\n    print(f\"Result: {output}\")\n"
+ },
+ {
+  "id": "s044",
+  "language": "python",
+  "expected": "ai",
+  "variant": "stripped-ai",
+  "source": "AI-style with ALL comments removed (hard case)",
+  "code": "import math\n\ndef count_words(sentence: str):\n    \"\"\"\n    Calculate the number of words in a sentence.\n\n    Args:\n        sentence (str): The input value.\n\n    Returns:\n        The number of words in a sentence.\n    \"\"\"\n    if sentence is None:\n        raise ValueError(\"Input cannot be None\")\n    result = len(sentence.split())\n    return result\n\nif __name__ == \"__main__\":\n    sentence = 'hello world'\n    output = count_words(sentence)\n    print(f\"Result: {output}\")\n"
+ }
+]

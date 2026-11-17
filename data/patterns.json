@@ -1,0 +1,35 @@
+{
+  "strong_phrases": [
+    "here's", "here is", "as an ai", "feel free", "you may want", "you might want", "you can replace",
+    "for demonstration", "for demo purposes", "for illustration", "example usage", "usage example",
+    "in a real-world", "in a real world", "in a production", "in production environment", "let's"
+  ],
+  "soft_phrases": [
+    "note that", "make sure to", "ensure that", "ensure the", "robust", "comprehensive", "seamless",
+    "leverage", "utilize", "handle edge cases", "handles edge cases", "edge cases", "gracefully",
+    "this function", "this method", "this class", "this script", "this code", "best practice",
+    "for simplicity", "for clarity", "helper function", "main function", "test the function",
+    "responsible for", "is used to", "used to ensure", "proper error handling", "error handling"
+  ],
+  "placeholder_regex": [
+    "rest of (the )?(code|file|function|implementation)",
+    "existing code",
+    "your (code|logic|implementation|api key|key) (goes )?here",
+    "add your .{0,25}(here|logic|code)",
+    "implement (this|your|here|the logic)",
+    "same as before",
+    "remains? (the same|unchanged)",
+    "code goes here",
+    "insert .{0,20}here",
+    "replace (me|this|with)",
+    "^\\.{3}$",
+    "\\.\\.\\. ?(rest|more|other|existing)",
+    "todo:? ?implement"
+  ],
+  "placeholder_value_regex": "your[_\\- ]?(api[_\\- ]?key|token|password|secret|username|email)|path/to/|<your|replace[_\\- ]?me|example\\.com|lorem ipsum|placeholder|xxx+@|john doe|foo@bar",
+  "explain_markers": [
+    "because", "workaround", "hack", "fixme", "bug", "otherwise", "since ", "so that", "so we", "why",
+    "due to", "avoid", "careful", "unless", "must ", "legacy", "upstream", "issue #", "see http", "xxx",
+    "temporary", "for now", "gotcha", "race", "deadlock", "otherwise", "breaks", "doesn't work", "does not work"
+  ]
+}
